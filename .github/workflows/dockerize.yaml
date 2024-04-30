@@ -29,9 +29,7 @@ jobs:
 
     - name: Determine Docker tag
       run: |
-        if [[ $GITHUB_REF == refs/heads/master ]]; then
-          echo "DOCKER_TAG=latest" >> $GITHUB_ENV
-        elif [[ $GITHUB_REF == refs/tags/v*.*.* ]]; then
+        if [[ $GITHUB_REF == refs/tags/v*.*.* ]]; then
           echo "DOCKER_TAG=${GITHUB_REF#refs/tags/}" >> $GITHUB_ENV
         fi
 
