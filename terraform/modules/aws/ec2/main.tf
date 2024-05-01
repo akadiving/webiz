@@ -9,28 +9,8 @@ resource "aws_instance" "main" {
     ami                         = each.value.ami
     tags                        = each.value.tags
     instance_type               = each.value.instance_type
-    dynamic "vpc_security_group_ids" {
-      for_each = try(each.value.security_group_ids, [])
-      content {
-        vpc_security_group_id = vpc_security_group_ids.value
-      }
-    }
-    dynamic "iam_instance_profile" {
-      for_each = try(each.value.iam_instance_profile, [])
-      content {
-        name = iam_instance_profile.value
-      }
-    }
-    dynamic "user_data" {
-      for_each = try(each.value.user_data, [])
-      content {
-        user_data = user_data.value
-      }
-    }
-    dynamic "associate_public_ip_address" {
-      for_each = try(each.value.associate_public_ip_address, [])
-      content {
-        associate_public_ip_address = associate_public_ip_address.value
-      }
-  }
+    vpc_security_group_ids      = try(each.value.security_group_ids, [])
+    iam_instance_profile        = try(each.value.iam_instance_profile, null)
+    user_data                   = try(each.value.user_data, null)
+    associate_public_ip_address = try(each.value.associate_public_ip_address, null)
 }
