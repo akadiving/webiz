@@ -9,10 +9,16 @@ variable "instance_ami" {
 }
 
 variable "ec_instance" {
-  type = map(object({
-    ami           = string
-    instance_type = string
-    tags          = map(string)
-  }))
+  type = map(object(
+    {
+      ami                         = string
+      instance_type               = string
+      tags                        = map(string)
+      security_group_ids          = list(string)
+      iam_instance_profile        = list(string)
+      user_data                   = list(string)
+      associate_public_ip_address = list(bool)
+    }
+  ))
   description = "Information about EC2 instances"
 }
