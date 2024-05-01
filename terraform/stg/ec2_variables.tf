@@ -1,5 +1,4 @@
 locals {
   ec_instance = {
-
   }
 }
