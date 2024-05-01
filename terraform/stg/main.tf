@@ -64,7 +64,6 @@ resource "aws_iam_instance_profile" "main" {
   role = aws_iam_role.main.name
 }
 
-
 resource "aws_instance" "main" {
     ami           = "ami-01e444924a2233b07" # replace with your AMI ID
     instance_type = "t2.micro" # replace with your desired instance type
