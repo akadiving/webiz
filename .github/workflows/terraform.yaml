@@ -46,7 +46,6 @@ jobs:
         terraform plan -out=tfplan -input=false -parallelism=10
     
     - name: Terraform Apply
-      if: github.event.pull_request.merged && github.event.pull_request.base.ref == 'master'
       run: |
         cd terraform/stg
         terraform apply -auto-approve -input=false -parallelism=10
