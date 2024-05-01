@@ -4,7 +4,7 @@ provider "aws" {
 }
 
 resource "aws_instance" "main" {
-    for_each      = local.ec_instance
+    for_each      = var.ec_instance
 
     ami           = each.value.ami
     tags          = each.value.tags

@@ -29,9 +29,9 @@ FROM python:${PYTHON_VERSION}-slim AS runtime
 
 # Copy the installed dependencies from the build stage
 COPY --from=build /opt /opt
-
+RUN . /opt/bin/activate && pip install uwsgi
 # Copy the remaining application files
 COPY . .
 
 EXPOSE 5000
-ENTRYPOINT ["uwsgi --listen 128 --ini uwsgi.ini"]
+ENTRYPOINT [ "bash", "-c", ". /opt/bin/activate && uwsgi --listen 128 --ini uwsgi.ini" ]
