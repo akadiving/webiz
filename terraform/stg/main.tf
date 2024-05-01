@@ -74,7 +74,6 @@ resource "aws_instance" "main" {
 
     tags = {
         name   = "webiz"
-        env    = "stg"
     }
 
     user_data = file("entrypoint.sh")

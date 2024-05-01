@@ -29,16 +29,23 @@ jobs:
         aws-region: eu-central-1
 
     - name: Change directory
-      run: cd terraform/stg && pwd && ls
+      run: cd terraform/stg
 
     - name: Terraform Validate
-      run: terraform validate
+      run: |
+        cd terraform/stg
+        terraform validate
 
     - name: Terraform Init
-      run: terraform init
+      run: |
+        cd terraform/stg
+        terraform init
+        
 
     - name: Terraform Plan
-      run: terraform plan -out=tfplan -input=false -parallelism=10
+      run: |
+        cd terraform/stg
+        terraform plan -out=tfplan -input=false -parallelism=10
 
   terraform-apply:
     needs: terraform-plan
@@ -62,13 +69,21 @@ jobs:
       run: cd terraform/stg
 
     - name: Terraform Validate
-      run: terraform validate
+      run: |
+        cd terraform/stg
+        terraform validate
 
     - name: Terraform Init
-      run: terraform init
+      run: |
+        cd terraform/stg
+        terraform init
 
     - name: Terraform Plan
-      run: terraform plan -out=tfplan -input=false -parallelism=10
+      run: |
+        cd terraform/stg
+        terraform plan -out=tfplan -input=false -parallelism=10
 
     - name: Terraform Apply
-      run: terraform apply -auto-approve -input=false -parallelism=10
+      run: |
+        cd terraform/stg
+        terraform apply -auto-approve -input=false -parallelism=10
