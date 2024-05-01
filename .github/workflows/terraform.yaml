@@ -6,10 +6,12 @@ on:
       - master
     paths:
       - 'terraform/**'
+      - 'terraform/stg/**'
   pull_request:
     types: [closed]
     paths:
       - 'terraform/**'
+      - 'terraform/stg/**'
 
 jobs:
   terraform-plan:
@@ -37,47 +39,14 @@ jobs:
       run: |
         cd terraform/stg
         terraform validate
-        
-
+      
     - name: Terraform Plan
       run: |
         cd terraform/stg
         terraform plan -out=tfplan -input=false -parallelism=10
-
-  terraform-apply:
-    needs: terraform-plan
-    runs-on: ubuntu-latest
-    if: github.event.pull_request.merged && github.event.pull_request.base.ref == 'master'
-    steps:
-    - name: Checkout code
-      uses: actions/checkout@v2
-
-    - name: Setup Terraform
-      uses: hashicorp/setup-terraform@v1
-
-    - name: Configure AWS credentials
-      uses: aws-actions/configure-aws-credentials@v1
-      with:
-        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        aws-region: eu-central-1
-
-    - name: Terraform Init
-      run: |
-        cd terraform/stg
-        terraform init
-
-    - name: Terraform Validate
-      run: |
-        cd terraform/stg
-        terraform validate
-
-    - name: Terraform Plan
-      run: |
-        cd terraform/stg
-        terraform plan -out=tfplan -input=false -parallelism=10
-
+    
     - name: Terraform Apply
+      if: github.event.pull_request.merged && github.event.pull_request.base.ref == 'master'
       run: |
         cd terraform/stg
         terraform apply -auto-approve -input=false -parallelism=10

@@ -73,7 +73,7 @@ resource "aws_instance" "main" {
     iam_instance_profile = aws_iam_instance_profile.main.name
 
     tags = {
-        name   = "webiz"
+        name   = "webiz-stg"
     }
 
     user_data = file("entrypoint.sh")
