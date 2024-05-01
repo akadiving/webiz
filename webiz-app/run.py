@@ -1,7 +1,6 @@
 #!/usr/bin/env python
 import json
 import logging
-from datetime import datetime, timedelta
 from flask import Flask, jsonify
 from flask_cors import CORS
 
@@ -18,16 +17,9 @@ def read_text_from_json(filename):
         data = json.load(file)
     return data['text']
 
-# Function to get current time in Tbilisi timezone (GMT+4)
-def get_tbilisi_time():
-    tbilisi_time = datetime.utcnow() + timedelta(hours=4)
-    return tbilisi_time.strftime("%Y-%m-%d %H:%M:%S")
-
 @app.route("/")
 def root_handler():
     text = read_text_from_json('data.json')
-    tbilisi_time = get_tbilisi_time()
-    final_text = f"{text} {tbilisi_time}"
     html_content = f"""
     <html>
         <head>
@@ -43,8 +35,8 @@ def root_handler():
             </style>
         </head>
         <body>
-            <h1>{final_text}</h1>
-            <h2 id="clock"></h2>
+            <h1>{text}</h1>
+            <h1 id="clock"></h1>
             <script>
                 function updateTime() {{
                     var now = new Date();
