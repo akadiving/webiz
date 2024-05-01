@@ -3,9 +3,3 @@ variable "ec_instance" {
   type        = any
   default     = {}
 }
-
-variable "secrets" {
-  default = {}
-  type = any
-  description = "values for secrets"
-}
