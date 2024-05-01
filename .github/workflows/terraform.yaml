@@ -5,11 +5,11 @@ on:
     branches:
       - master
     paths:
-      - 'terraform/stg/**'
+      - 'terraform/**'
   pull_request:
     types: [closed]
     paths:
-      - 'terraform/stg/**'
+      - 'terraform/**'
 
 jobs:
   terraform-plan:
